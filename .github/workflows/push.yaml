@@ -37,6 +37,7 @@ jobs:
           images: ${{ secrets.YANDEX_REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=sha, event=branch
+            type=raw,value=latest
       - name: Build and push image
         uses: docker/build-push-action@v5
         with:
