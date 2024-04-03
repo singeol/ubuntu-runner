@@ -28,7 +28,7 @@ jobs:
         uses: docker/login-action@v1
         with:
           registry: cr.yandex
-          username: ${{ secrets.YANDEX_USER }}
+          username: json_key
           password: ${{ secrets.YANDEX_TOKEN }}
       - name: Extract metadata (tags, labels) for Docker
         id: meta
