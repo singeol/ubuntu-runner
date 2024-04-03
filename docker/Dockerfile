@@ -63,7 +63,7 @@ RUN apt update -y && apt install curl wget sudo unzip -y && \
     libstdc++6 \
     zlib1g \
     sudo \
-    make \
+    # make \
     lsb-release \
     && rm -rf /var/lib/apt/lists/*
 
