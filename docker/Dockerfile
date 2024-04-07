@@ -52,9 +52,12 @@ ENV ACTIONS_RUNNER_PRINT_LOG_TO_STDOUT=1
 ENV ImageOS=ubuntu22
 ENV DOTNET_RUNNING_IN_CONTAINER=true
 
-RUN apt update -y && apt install curl wget sudo unzip -y && \
+RUN apt-get update -y && apt-get install curl wget sudo unzip -y && \
     apt-get install -y --no-install-recommends \
     ca-certificates \
+    jq \
+    software-properties-common \
+    git \
     libc6 \
     libgcc1 \
     libgssapi-krb5-2 \
@@ -63,9 +66,42 @@ RUN apt update -y && apt install curl wget sudo unzip -y && \
     libstdc++6 \
     zlib1g \
     sudo \
-    # make \
-    lsb-release \
-    && rm -rf /var/lib/apt/lists/*
+    make \
+    lsb-release && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN apt-get update && \
+    wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 && \
+    chmod a+x /usr/local/bin/yq && \
+    apt-get install -y python3-pip && \
+    apt-get install -y software-properties-common && \
+    add-apt-repository --yes --update ppa:ansible/ansible && \
+    apt-get install -y ansible && \
+    apt-get install -y curl git wget && \
+    curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && \
+    apt-get install -y nodejs && \
+    npm install --global yarn && \
+    echo "deb https://ppa.launchpadcontent.net/brightbox/ruby-ng/ubuntu/ focal main"|tee  /etc/apt/sources.list.d/brightbox.list && \
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys  80F70E11F0F0D5F10CB20E62F5DA5F09C3173AA6 && \
+    apt-get install -y ruby && \
+    add-apt-repository ppa:longsleep/golang-backports --yes --update && \
+    apt-get install -y golang-go && \
+    mkdir -p ~/go/{bin,pkg,src} && \
+    echo 'export GOPATH="$HOME/go"' >> ~/.bashrc && \
+    echo 'export PATH="$PATH:${GOPATH//://bin:}/bin"' >> ~/.bashrc && \
+    wget https://github.com/gruntwork-io/terragrunt/releases/download/v0.38.12/terragrunt_linux_amd64 && \
+    mv terragrunt_linux_amd64 terragrunt && \
+    chmod u+x terragrunt && \
+    mv terragrunt /usr/local/bin/terragrunt && \
+    install -m 0755 -d /etc/apt/keyrings && \
+    curl -fsSL https://get.opentofu.org/opentofu.gpg | tee /etc/apt/keyrings/opentofu.gpg >/dev/null && \
+    curl -fsSL https://packages.opentofu.org/opentofu/tofu/gpgkey | gpg --no-tty --batch --dearmor -o /etc/apt/keyrings/opentofu-repo.gpg >/dev/null && \
+    chmod a+r /etc/apt/keyrings/opentofu.gpg && \
+    echo "deb [signed-by=/etc/apt/keyrings/opentofu.gpg,/etc/apt/keyrings/opentofu-repo.gpg] https://packages.opentofu.org/opentofu/tofu/any/ any main" | \
+    tee /etc/apt/sources.list.d/opentofu.list > /dev/null && \
+    apt-get update && \
+    apt-get install -y tofu
+
 
 RUN adduser --disabled-password --gecos "" --uid 1001 runner \
     && groupadd docker --gid 123 \
