@@ -81,6 +81,7 @@ RUN apt-get update && \
     curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && \
     apt-get install -y nodejs && \
     npm install --global yarn && \
+    npm install -g typescript && \
     echo "deb https://ppa.launchpadcontent.net/brightbox/ruby-ng/ubuntu/ focal main"|tee  /etc/apt/sources.list.d/brightbox.list && \
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys  80F70E11F0F0D5F10CB20E62F5DA5F09C3173AA6 && \
     apt-get install -y ruby && \
