@@ -11,6 +11,8 @@ ENV DOTNET_RUNNING_IN_CONTAINER=true
 RUN apt update -y && apt install curl wget sudo unzip -y && \
     apt-get install -y --no-install-recommends \
         ca-certificates \
+        \
+        # .NET dependencies
         libc6 \
         libgcc1 \
         libgssapi-krb5-2 \
