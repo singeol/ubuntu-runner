@@ -101,7 +101,9 @@ RUN apt-get update && \
     echo "deb [signed-by=/etc/apt/keyrings/opentofu.gpg,/etc/apt/keyrings/opentofu-repo.gpg] https://packages.opentofu.org/opentofu/tofu/any/ any main" | \
     tee /etc/apt/sources.list.d/opentofu.list > /dev/null && \
     apt-get update && \
-    apt-get install -y tofu
+    apt-get install -y tofu && \
+    apt-get clean && \
+    apt-get autoclean
 
 
 RUN adduser --disabled-password --gecos "" --uid 1001 runner \
