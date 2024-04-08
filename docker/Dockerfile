@@ -103,7 +103,8 @@ RUN apt-get update && \
     apt-get update && \
     apt-get install -y tofu && \
     apt-get clean && \
-    apt-get autoclean
+    apt-get autoclean && \
+    rm -rf /var/lib/apt/lists/*
 
 
 RUN adduser --disabled-password --gecos "" --uid 1001 runner \
