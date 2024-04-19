@@ -58,6 +58,9 @@ RUN apt-get update -y && apt-get install curl wget sudo unzip -y && \
     jq \
     software-properties-common \
     git \
+    gnupg2 \
+    python2 \
+    openssl \
     libc6 \
     libgcc1 \
     libgssapi-krb5-2 \
@@ -102,6 +105,14 @@ RUN apt-get update && \
     tee /etc/apt/sources.list.d/opentofu.list > /dev/null && \
     apt-get update && \
     apt-get install -y tofu && \
+    apt-get install -yq --no-install-recommends \
+    postgresql-client-14 \
+    icu-devtools \
+    libpq-dev \
+    imagemagick \
+    graphviz \
+    fonts-open-sans \
+    shared-mime-info && \
     apt-get clean && \
     apt-get autoclean && \
     rm -rf /var/lib/apt/lists/*
