@@ -80,7 +80,6 @@ RUN apt-get update && \
     wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 && \
     chmod a+x /usr/local/bin/yq && \
     apt-get install -y python3-pip && \
-    apt-get install -y software-properties-common && \
     add-apt-repository --yes --update ppa:ansible/ansible && \
     apt-get install -y ansible && \
     curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && \
