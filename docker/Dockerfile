@@ -55,6 +55,9 @@ ENV DOTNET_RUNNING_IN_CONTAINER=true
 RUN apt-get update -y && apt-get install curl wget sudo unzip -y && \
     apt-get install -y --no-install-recommends \
     ca-certificates \
+    build-essential \
+    pkg-config \
+    less \
     jq \
     software-properties-common \
     git \
