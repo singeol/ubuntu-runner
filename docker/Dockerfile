@@ -74,8 +74,7 @@ RUN apt-get update -y && apt-get install curl wget sudo unzip -y && \
     zlib1g \
     sudo \
     make \
-    lsb-release && \
-    rm -rf /var/lib/apt/lists/*
+    lsb-release
 
 RUN apt-get update && \
     wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 && \
@@ -84,10 +83,9 @@ RUN apt-get update && \
     apt-get install -y software-properties-common && \
     add-apt-repository --yes --update ppa:ansible/ansible && \
     apt-get install -y ansible && \
-    apt-get install -y curl git wget && \
     curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && \
     apt-get install -y nodejs && \
-    npm install --global yarn && \
+    npm install -g yarn && \
     npm install -g typescript && \
     echo "deb https://ppa.launchpadcontent.net/brightbox/ruby-ng/ubuntu/ focal main"|tee  /etc/apt/sources.list.d/brightbox.list && \
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys  80F70E11F0F0D5F10CB20E62F5DA5F09C3173AA6 && \
@@ -119,7 +117,9 @@ RUN apt-get update && \
     shared-mime-info && \
     apt-get clean && \
     apt-get autoclean && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/cache/apt/archives/* && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+    truncate -s 0 /var/log/*log
 
 
 RUN adduser --disabled-password --gecos "" --uid 1001 runner \
