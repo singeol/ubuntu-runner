@@ -55,6 +55,7 @@ ENV DOTNET_RUNNING_IN_CONTAINER=true
 RUN apt-get update -y && apt-get install curl wget sudo unzip -y && \
     apt-get install -y --no-install-recommends \
     ca-certificates \
+    libyaml-dev \
     build-essential \
     pkg-config \
     less \
