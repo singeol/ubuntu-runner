@@ -104,7 +104,12 @@ RUN apt-get update && \
     chmod a+r /etc/apt/keyrings/opentofu.gpg && \
     echo "deb [signed-by=/etc/apt/keyrings/opentofu.gpg,/etc/apt/keyrings/opentofu-repo.gpg] https://packages.opentofu.org/opentofu/tofu/any/ any main" | \
     tee /etc/apt/sources.list.d/opentofu.list > /dev/null && \
+    curl -fSsL https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor | \
+    tee /usr/share/keyrings/google-chrome.gpg > /dev/null && \
+    echo deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main | \
+    tee /etc/apt/sources.list.d/google-chrome.list && \
     apt-get update && \
+    apt-get install google-chrome-stable && \
     apt-get install -y tofu && \
     apt-get install -yq --no-install-recommends \
     postgresql-client-14 \
