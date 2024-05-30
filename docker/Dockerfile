@@ -135,7 +135,7 @@ RUN adduser --disabled-password --gecos "" --uid 1001 runner \
     && mkdir -p /opt/hostedtoolcache \
     && chown runner:docker /opt/hostedtoolcache \
     && chmod 775 /opt/hostedtoolcache \
-    && 'echo "{\"registry-mirrors\": [\"https://mirror.gcr.io\"]}" > /etc/docker/daemon.json'
+    && echo '{"registry-mirrors": ["https://mirror.gcr.io"]}' > /etc/docker/daemon.json
 
 WORKDIR /home/runner
 
