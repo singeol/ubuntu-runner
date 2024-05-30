@@ -134,7 +134,8 @@ RUN adduser --disabled-password --gecos "" --uid 1001 runner \
     && echo "Defaults env_keep += \"DEBIAN_FRONTEND\"" >> /etc/sudoers \
     && mkdir -p /opt/hostedtoolcache \
     && chown runner:docker /opt/hostedtoolcache \
-    && chmod 775 /opt/hostedtoolcache
+    && chmod 775 /opt/hostedtoolcache \
+    && sudo sh -c echo '"{\"registry-mirrors\": [\"https://mirror.gcr.io\"]}" > /etc/docker/daemon.json'
 
 WORKDIR /home/runner
 
